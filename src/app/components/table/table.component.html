@@ -1,1 +1,25 @@
-<p>table works!</p>
+<p-table [value]="payments" [columns]="selectedColumns" responsiveLayout="scroll">
+
+  <ng-template pTemplate="caption">
+    <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
+                   selectedItemsLabel="Столбцов выбрано: {0}"
+                   [style]="{ minWidth: '200px' }" placeholder="Выберите столбцы"></p-multiSelect>
+  </ng-template>
+
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th *ngFor="let col of columns" pSortableColumn="{{ col.field }}">
+        {{ col.header }} <p-sortIcon field="{{ col.field }}"></p-sortIcon>
+      </th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-payment let-columns="columns">
+    <tr>
+      <td *ngFor="let col of columns">
+        {{ payment[col.field] }}
+      </td>
+    </tr>
+  </ng-template>
+
+</p-table>
